@@ -8,10 +8,17 @@ This is my setup of using Lambda, User Pools, and Nodejs.
 cpc_node$ aws s3 mb s3://BUCKET_NAME
 ```
 
-## To test
+## To test SAM/Lambda
 
 ```bash
 cpc_node$ cd Lambda/ && npm run test
+```
+
+
+## To run locally
+
+```bash
+cpc_node$ cd Lambda/app && npm run watch
 ```
 
 ## To deploy

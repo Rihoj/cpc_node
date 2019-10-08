@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "cd app && npm run prep && cd ../ && sam local invoke 'Lambda' -e events/event.json"
+    "test": "cd app && npm run prep && cd ../ && docker run -v data/ --name mongo-myapp --rm -d -p 27018:27017 mongo && sam local invoke --env-vars LambdaEnv.json --docker-network host 'Lambda' -e events/event.json && docker stop mongo-myapp"
   },
   "author": "",
   "license": "ISC"

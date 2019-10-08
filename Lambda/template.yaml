@@ -24,6 +24,9 @@ Resources:
       CodeUri: ./app/dist/lambda
       Handler: lambda.handler
       Runtime: "nodejs10.x"
+      Environment:
+        Variables:
+          DATABASE_URL: "mongodb://127.0.0.1:27017/cpc"
       Events:
         ProxyApiRoot:
           Type: Api
@@ -37,20 +40,6 @@ Resources:
             RestApiId: !Ref ApiGatewayApi
             Path: /address/{proxy+}
             Method: ANY
-  AddressTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      TableName: CpcAddress
-      PrimaryKey:
-        Name: id
-        Type: String
-      ProvisionedThroughput:
-        ReadCapacityUnits: 1
-        WriteCapacityUnits: 1
-      Tags:
-        DDBTableGroupKey-CPC: CPC
-
-
 
 Outputs:
   ApiUrl:
@@ -87,6 +76,3 @@ Outputs:
         - !Ref AWS::Region
         - "#/functions/"
         - !Ref Lambda
-  AdressTableId:
-    Description: "The ID of the Address DynamoDb CPC"
-    Value: !Ref AddressTable

@@ -10,10 +10,9 @@
     "clean": "rimraf dist",
     "build": "webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.config.js",
     "build:prod": "webpack --mode production --config webpack.server.config.js",
-    "prep": "npm run clean && npm run build:prod && npm run make:nodemod",
+    "prep": "npm run clean && npm run build:prod",
     "watch": "nodemon",
-    "prod": "NODE_ENV=production npm run clean && npm run build && npm run server:prod",
-    "make:nodemod": "copy-node-modules ./ ./dist/ -v"
+    "prod": "NODE_ENV=production npm run clean && npm run build && npm run server:prod"
   },
   "dependencies": {
     "aws-sdk": "^2.543.0",
@@ -25,6 +24,7 @@
     "mongodb-client-encryption": "^0.3.1",
     "mongoose": "^5.7.3",
     "morgan": "~1.9.1",
+    "regenerator-runtime": "^0.13.3",
     "rimraf": "^3.0.0"
   },
   "devDependencies": {

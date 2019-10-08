@@ -1,0 +1,14 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "cd app && npm run prep && cd ../ && sam local invoke 'Lambda' -e events/event.json"
+  },
+  "author": "",
+  "license": "ISC"
+}

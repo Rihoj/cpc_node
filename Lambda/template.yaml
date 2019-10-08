@@ -1,0 +1,92 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  CPC Address Function
+
+  Address management for Clampitt's Pest Control
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 15
+
+Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      DefinitionUri: ./Api/proxy.yaml
+      StageName: prod
+      Variables:
+        ServerlessExpressLambdaFunctionName: !Ref Lambda
+  Lambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./app/dist/lambda
+      Handler: lambda.handler
+      Runtime: "nodejs10.x"
+      Events:
+        ProxyApiRoot:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /address/
+            Method: ANY
+        ProxyApiGreedy:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /address/{proxy+}
+            Method: ANY
+  AddressTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: CpcAddress
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      Tags:
+        DDBTableGroupKey-CPC: CPC
+
+
+
+Outputs:
+  ApiUrl:
+    Description: Invoke URL for your API. Clicking this link will perform a GET request
+      on the root resource of your API.
+    Value: !Join
+      - ''
+      - - https://
+        - !Ref ApiGatewayApi
+        - ".execute-api."
+        - !Ref AWS::Region
+        - ".amazonaws.com/prod/"
+  ApiGatewayApiConsoleUrl:
+    Description: Console URL for the API Gateway API's Stage.
+    Value: !Join
+      - ''
+      - - https://
+        - !Ref AWS::Region
+        - ".console.aws.amazon.com/apigateway/home?region="
+        - !Ref AWS::Region
+        - "#/apis/"
+        - !Ref ApiGatewayApi
+        - "/stages/prod"
+  LambdaAdressFunction:
+    Description: "The ID of the Lambda Address function for CPC"
+    Value: !Ref Lambda
+  LambdaFunctionConsoleUrl:
+    Description: Console URL for the Lambda Function.
+    Value: !Join
+      - ''
+      - - https://
+        - !Ref AWS::Region
+        - ".console.aws.amazon.com/lambda/home?region="
+        - !Ref AWS::Region
+        - "#/functions/"
+        - !Ref Lambda
+  AdressTableId:
+    Description: "The ID of the Address DynamoDb CPC"
+    Value: !Ref AddressTable

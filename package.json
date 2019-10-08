@@ -1,0 +1,16 @@
+{
+  "name": "lambda-sam-user-pools",
+  "version": "1.0.0",
+  "description": "This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.",
+  "main": "index.js",
+  "scripts": {
+    "sam:package": "sam package --template template.yaml --output-template-file cloudformation.yaml --s3-bucket clampitts-pest-control",
+    "sam:deploy": "sam deploy --template-file cloudformation.yaml --stack-name clampitts-pest-control --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND",
+    "sam": "npm run sam:package && npm run sam:deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

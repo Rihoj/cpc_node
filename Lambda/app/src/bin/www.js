@@ -11,44 +11,43 @@ import {
 import dotenv from "dotenv";
 
 dotenv.config()
-// console.log(connectDb.then(()=> {console.log("no way")})); process.exit();
 
-connectDb().then(async () => {
+connectDb().then( async () => {
 
-  const debug = debugLib("app:server");
+  const debug = debugLib( "app:server" );
   /**
    * Get port from environment and store in Express.
    */
 
-  var port = normalizePort(process.env.PORT || "3000");
-  app.set("port", port);
+  var port = normalizePort( process.env.PORT || "3000" );
+  app.set( "port", port );
 
   /**
    * Create HTTP server.
    */
 
-  var server = http.createServer(app);
+  var server = http.createServer( app );
 
   /**
    * Listen on provided port, on all network interfaces.
    */
-  server.listen(port);
-  server.on("error", onError);
-  server.on("listening", onListening);
+  server.listen( port );
+  server.on( "error", onError );
+  server.on( "listening", onListening );
 
   /**
    * Normalize a port into a number, string, or false.
    */
 
-  function normalizePort(val) {
-    var port = parseInt(val, 10);
+  function normalizePort( val ) {
+    var port = parseInt( val, 10 );
 
-    if (isNaN(port)) {
+    if ( isNaN( port ) ) {
       // named pipe
       return val;
     }
 
-    if (port >= 0) {
+    if ( port >= 0 ) {
       // port number
       return port;
     }
@@ -60,8 +59,8 @@ connectDb().then(async () => {
    * Event listener for HTTP server "error" event.
    */
 
-  function onError(error) {
-    if (error.syscall !== "listen") {
+  function onError( error ) {
+    if ( error.syscall !== "listen" ) {
       throw error;
     }
 
@@ -70,14 +69,14 @@ connectDb().then(async () => {
       "Port " + port;
 
     // handle specific listen errors with friendly messages
-    switch (error.code) {
+    switch ( error.code ) {
       case "EACCES":
-        console.error(bind + " requires elevated privileges");
-        process.exit(1);
+        console.error( bind + " requires elevated privileges" );
+        process.exit( 1 );
         break;
       case "EADDRINUSE":
-        console.error(bind + " is already in use");
-        process.exit(1);
+        console.error( bind + " is already in use" );
+        process.exit( 1 );
         break;
       default:
         throw error;
@@ -93,6 +92,6 @@ connectDb().then(async () => {
     var bind = typeof addr === "string" ?
       "pipe " + addr :
       "port " + addr.port;
-    debug("Listening on " + bind);
+    debug( "Listening on " + bind );
   }
-});
+} );

@@ -9,7 +9,16 @@ Description: >
 Globals:
   Function:
     Timeout: 15
-
+Parameters:
+  MasterDbUsername:
+    Type: String
+    Description: DocumentDb Username
+    Default: Username
+  MasterDbPassword:
+    Type: String
+    Description: DocumentDb Password
+    NoEcho: true
+    Default: Password
 Resources:
   ApiGatewayApi:
     Type: AWS::Serverless::Api
@@ -18,6 +27,11 @@ Resources:
       StageName: prod
       Variables:
         ServerlessExpressLambdaFunctionName: !Ref Lambda
+  DocumentDb:
+    Type: AWS::DocDB::DBCluster
+    Properties:
+      MasterUsername: !Ref MasterDbUsername
+      MasterUserPassword: !Ref MasterDbPassword
   Lambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -26,7 +40,11 @@ Resources:
       Runtime: "nodejs10.x"
       Environment:
         Variables:
-          DATABASE_URL: "mongodb://127.0.0.1:27017/cpc"
+          DATABASE_URL: !Join
+            - ''
+            - - "mongodb://"
+              - !GetAtt DocumentDb.Endpoint
+              - "/cpc"
       Events:
         ProxyApiRoot:
           Type: Api

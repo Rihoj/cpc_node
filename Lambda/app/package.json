@@ -15,8 +15,10 @@
     "prod": "NODE_ENV=production npm run clean && npm run build && npm run server:prod"
   },
   "dependencies": {
-    "aws-sdk": "^2.543.0",
+    "amazon-cognito-identity-js": "^3.1.2",
+    "aws-sdk": "^2.548.0",
     "aws-serverless-express": "^3.3.6",
+    "cognito-express": "^2.0.16",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -24,6 +26,7 @@
     "mongodb-client-encryption": "^0.3.1",
     "mongoose": "^5.7.3",
     "morgan": "~1.9.1",
+    "node-fetch": "^2.6.0",
     "regenerator-runtime": "^0.13.3",
     "rimraf": "^3.0.0"
   },

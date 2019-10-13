@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const addressSchema = new mongoose.Schema({
+const addressSchema = new mongoose.Schema( {
   name: {
     type: String
   },
@@ -16,8 +16,12 @@ const addressSchema = new mongoose.Schema({
   state: {
     type: String
   }
-});
+} );
 
-const Address = mongoose.model("Address", addressSchema);
 
-export default Address;
+
+export const Address = mongoose.model( "Address", addressSchema );
+
+export {
+  Address as default
+};

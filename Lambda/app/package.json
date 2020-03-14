@@ -35,7 +35,7 @@
     "@babel/core": "^7.6.2",
     "@babel/node": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
-    "acorn": "^7.1.0",
+    "acorn": "^7.1.1",
     "babel-loader": "^8.0.6",
     "copy-node-modules": "^1.1.1",
     "css-loader": "^3.2.0",
